@@ -6,17 +6,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root {
-  /* Obys Editorial Monochrome & Acid Palette */
-  --bg-main: #0d0d0d;
-  --bg-surface: #141414;
-  --bg-surface-elevated: #1c1c1c;
+  /* Obys Editorial Monochrome & Acid Palette with #222222 Base */
+  --bg-main: #222222;
+  --bg-surface: #2c2c2c;
+  --bg-surface-elevated: #383838;
   --bg-light-cream: #f6f6f2;
   
   --text-pure: #ffffff;
-  --text-muted: #888888;
-  --text-dim: #444444;
+  --text-muted: #a0a0a0;
+  --text-dim: #555555;
 
-  --border-line: rgba(255, 255, 255, 0.12);
+  --border-line: rgba(255, 255, 255, 0.14);
   --border-strong: rgba(255, 255, 255, 0.28);
   --border-light-theme: rgba(0, 0, 0, 0.12);
 
@@ -38,7 +38,7 @@
 .scroll-intro-wrapper {
   position: fixed;
   inset: 0;
-  background: #06080b;
+  background: #222222;
   z-index: 2500;
   display: flex;
   flex-direction: column;
@@ -174,7 +174,7 @@ body {
 /* ---------------- EDITORIAL GLOBAL NAVBAR ---------------- */
 .obys-nav {
   height: 64px;
-  background: rgba(13, 13, 13, 0.9);
+  background: rgba(34, 34, 34, 0.94);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-line);
   display: flex;
@@ -263,10 +263,10 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(10px);
   width: 520px;
-  background: #111111;
+  background: #2c2c2c;
   border: 1px solid var(--border-line);
   border-radius: 4px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
   padding: 18px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -288,8 +288,8 @@ body {
 
 .dropdown-item-card {
   padding: 12px 14px;
-  background: #161616;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #222222;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -297,7 +297,7 @@ body {
   flex-direction: column;
 }
 .dropdown-item-card:hover {
-  background: #1f1f1f;
+  background: #363636;
   border-color: var(--acid-green);
   transform: translateY(-2px);
 }
@@ -588,7 +588,7 @@ body {
 /* ---------------- SPACIOUS LIVE TERMINAL WORKSPACE ---------------- */
 .terminal-fullscreen-wrap {
   padding: 40px 48px;
-  background: #080808;
+  background: #222222;
 }
 
 .terminal-header-strip {
