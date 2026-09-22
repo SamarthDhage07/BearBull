@@ -1,0 +1,218 @@
+/* =====================================================================
+   BearBull — Component Styles (Editorial, Spacious & High-Contrast)
+   ===================================================================== */
+
+/* ---------------- EDITORIAL ORDER BOOK LADDER ---------------- */
+.obys-terminal-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.obys-terminal-card-header {
+  padding: 16px 20px;
+  background: #111111;
+  border-bottom: 1px solid var(--border-line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header-label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.orderbook-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 6px 12px;
+  align-items: center;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.orderbook-row .depth-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  transition: width 0.15s ease;
+}
+
+.orderbook-row.ask .depth-bar { background: var(--acid-red); }
+.orderbook-row.bid .depth-bar { background: var(--acid-green); }
+
+.orderbook-row span {
+  position: relative;
+  z-index: 1;
+  text-align: right;
+  color: var(--text-pure);
+}
+.orderbook-row span:first-child {
+  text-align: left;
+  font-weight: 700;
+}
+.orderbook-row.ask span:first-child { color: var(--acid-red); }
+.orderbook-row.bid span:first-child { color: var(--acid-green); }
+
+.spread-banner-bold {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #0f0f0f;
+  border-top: 1px dashed var(--border-strong);
+  border-bottom: 1px dashed var(--border-strong);
+  font-family: var(--font-mono);
+}
+.spread-banner-bold .mid-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+}
+.spread-banner-bold .spread-val {
+  font-size: 12px;
+  color: var(--acid-cyan);
+}
+
+/* ---------------- TRADE TAPE STREAM ---------------- */
+.trade-tape-wrap {
+  height: 280px;
+  overflow-y: auto;
+}
+
+.trade-row-obys {
+  display: grid;
+  grid-template-columns: 80px 60px 1fr 1fr 80px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  align-items: center;
+}
+.trade-row-obys .side-tag {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.trade-row-obys .side-tag.buy { color: var(--acid-green); }
+.trade-row-obys .side-tag.sell { color: var(--acid-red); }
+
+/* ---------------- BENCHMARK TABLE ---------------- */
+.obys-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.obys-table th {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 2px solid var(--border-line);
+}
+.obys-table td {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-line);
+  font-family: var(--font-mono);
+}
+.obys-table tr.highlight-row {
+  background: rgba(37, 242, 132, 0.05);
+}
+
+/* ---------------- AGENT CARDS ---------------- */
+.agent-grid-spacious {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.agent-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  padding: 32px;
+  border-radius: 4px;
+}
+.agent-box-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.agent-box-formula {
+  background: #000000;
+  border-left: 2px solid var(--acid-green);
+  padding: 10px 14px;
+  margin: 16px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--acid-green);
+}
+
+/* ---------------- SHOCK SIMULATOR BUTTONS ---------------- */
+.shock-grid-obys {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.shock-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  padding: 36px 28px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.shock-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* ---------------- LATENCY WATERFALL ---------------- */
+.waterfall-bar-wrap {
+  display: flex;
+  height: 36px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 16px 0;
+  background: #000000;
+  border: 1px solid var(--border-line);
+}
+
+.wf-segment {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: #000;
+}
+.wf-ingress { background: #3b82f6; }
+.wf-validate { background: #25f284; }
+.wf-match { background: #ffb700; }
+.wf-queue { background: #ff385c; }
+.wf-egress { background: #a855f7; }

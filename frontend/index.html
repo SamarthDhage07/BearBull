@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BEARBULL — The Electronic Market Laboratory (Obys Editorial Edition)</title>
+  
+  <!-- High-Fashion Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- ================= PARALLAX STOCK GRAPH INTRO (5-6 SCROLLS) ================= -->
+  <div class="scroll-intro-wrapper" id="scrollIntroWrapper">
+    <!-- Pinned Canvas for dynamic green line & moving dot -->
+    <canvas id="parallaxChartCanvas" style="position:absolute;inset:0;pointer-events:none;"></canvas>
+
+    <!-- Top HUD -->
+    <div class="intro-hud-top">
+      <div class="intro-brand-title">BEAR<span>BULL</span></div>
+      <button class="btn-obys" id="btnSkipIntro" style="font-size:11px;padding:8px 18px;">
+        SKIP INTRO [ESC] ↵
+      </button>
+    </div>
+
+    <!-- Center HUD (Live Traced Price) -->
+    <div class="intro-hud-center">
+      <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;" id="introHudStage">
+        STAGE 01 / 05 // INITIALIZING MARKET LIQUIDITY
+      </div>
+      <div class="intro-price-huge" id="introHudPrice">₹100.00</div>
+      <div class="intro-gain-badge" id="introHudGain">+0.00% ALPHA</div>
+    </div>
+
+    <!-- Bottom HUD -->
+    <div class="intro-hud-bottom">
+      <div class="intro-scroll-cue">
+        <span>↓ SCROLL TO ADVANCE MARKET TRAJECTORY</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">
+        PRD V1.0 // DISCRETE-EVENT DES
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="intro-progress-bar-wrap">
+      <div class="intro-progress-bar-fill" id="introProgressBar"></div>
+    </div>
+  </div>
+
+  <!-- ================= EDITORIAL TOP NAVBAR ================= -->
+  <header class="obys-nav">
+    <div class="obys-brand" onclick="window.BearBullApp.switchView('view-home')">
+      <div class="brand-text-huge">BEAR<span>BULL</span></div>
+      <span class="brand-pill-tag">QUANT / V1.0</span>
+    </div>
+
+    <!-- Clean Streamlined Menu with Features Mega Dropdown -->
+    <nav class="obys-menu">
+      <button class="obys-menu-item active" data-target="view-home">Home</button>
+
+      <!-- Features Slide-Down Dropdown -->
+      <div class="features-dropdown-wrap">
+        <button class="obys-menu-item">Features <span style="font-size:10px;">▼</span></button>
+        <div class="dropdown-menu-obys">
+          
+          <div class="dropdown-item-card" onclick="window.BearBullApp.switchView('view-live-market')">
+            <span class="dropdown-item-num">01 //</span>
+            <span class="dropdown-item-title">Live Trading Terminal</span>
+            <span class="dropdown-item-desc">Price-Time FIFO book, OHLCV candles & trade tape.</span>
+          </div>
+
+          <div class="dropdown-item-card" onclick="window.BearBullApp.switchView('view-agents')">
+            <span class="dropdown-item-num">02 //</span>
+            <span class="dropdown-item-title">11 Agent Archetypes</span>
+            <span class="dropdown-item-desc">Market makers, momentum, OU reversion & spoofers.</span>
+          </div>
+
+          <div class="dropdown-item-card" onclick="window.BearBullApp.switchView('view-rl-studio')">
+            <span class="dropdown-item-num">03 //</span>
+            <span class="dropdown-item-title">AI & RL Studio</span>
+            <span class="dropdown-item-desc">Gymnasium RL market-making training environment.</span>
+          </div>
+
+          <div class="dropdown-item-card" onclick="window.BearBullApp.switchView('view-benchmarks')">
+            <span class="dropdown-item-num">04 //</span>
+            <span class="dropdown-item-title">Systems Benchmark</span>
+            <span class="dropdown-item-desc">Array+Bitmap vs Red-Black Tree tail latency profiling.</span>
+          </div>
+
+          <div class="dropdown-item-card" onclick="window.BearBullApp.switchView('view-shocks')">
+            <span class="dropdown-item-num">05 //</span>
+            <span class="dropdown-item-title">Shock Simulator</span>
+            <span class="dropdown-item-desc">Flash crashes, liquidity withdrawal & news surges.</span>
+          </div>
+
+          <div class="dropdown-item-card" onclick="window.BearBullApp.switchView('view-report')">
+            <span class="dropdown-item-num">06 //</span>
+            <span class="dropdown-item-title">Scientific Report</span>
+            <span class="dropdown-item-desc">Automated hypothesis, empirical results & PDF export.</span>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="obys-menu-item" onclick="window.BearBullApp.switchView('view-report')">Report</button>
+    </nav>
+
+    <!-- Right Nav Actions -->
+    <div class="obys-nav-actions">
+      <button class="btn-obys btn-obys-primary" onclick="window.BearBullApp.switchView('view-live-market')">
+        Live Exchange ↗
+      </button>
+      <button class="btn-obys" style="padding:14px 18px;font-family:var(--font-mono);" onclick="document.getElementById('cmdModal').classList.add('active');">
+        ⌘K
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= RUNNING LIVE MARQUEE TICKER ================= -->
+  <div class="marquee-strip">
+    <div class="marquee-content">
+      <div class="marquee-item"><span>SYMBOL:</span> <span class="cyan">BBX / INR</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>MID-PRICE:</span> <span id="marqueeMid" class="green">₹100.12</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>SPREAD:</span> <span id="marqueeSpread" class="cyan">₹0.01</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>MATCHING:</span> <span>PRICE-TIME FIFO</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>ACTIVE AGENTS:</span> <span class="green">11 ARCHETYPES</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>REGIME:</span> <span id="marqueeRegime" class="green">CALM</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>LATENCY:</span> <span>NANOSECOND DES</span></div>
+      <div class="marquee-dot"></div>
+      <!-- Duplicate for infinite smooth loop -->
+      <div class="marquee-item"><span>SYMBOL:</span> <span class="cyan">BBX / INR</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>MID-PRICE:</span> <span class="green">₹100.12</span></div>
+      <div class="marquee-dot"></div>
+      <div class="marquee-item"><span>SPREAD:</span> <span class="cyan">₹0.01</span></div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT VIEWPORT ================= -->
+  <main>
+
+    <!-- ========================================================= -->
+    <!-- 1. OBYS EDITORIAL SPACIOUS HOME OVERVIEW                  -->
+    <!-- ========================================================= -->
+    <section class="app-view active" id="view-home">
+      
+      <!-- Hero -->
+      <div class="obys-hero">
+        <div class="hero-index-tag">
+          <span>01</span> // <span>MARKET-SYSTEM COUPLING PLATFORM</span>
+        </div>
+
+        <h1 class="hero-giant-title">
+          ELECTRONIC <br/>
+          <span class="outline-text">MARKET LAB</span> & <br/>
+          AGENT TRAINING
+        </h1>
+
+        <div class="hero-bottom-bar">
+          <p class="hero-desc-large">
+            A high-performance research platform coupling price-time matching engines with autonomous quantitative agents. Train reinforcement learning market makers and benchmark microsecond execution.
+          </p>
+          <div class="hero-cta-group">
+            <button class="btn-obys btn-obys-primary" onclick="window.BearBullApp.switchView('view-live-market')">
+              Launch Exchange ↗
+            </button>
+            <button class="btn-obys btn-obys-acid" onclick="window.BearBullApp.switchView('view-rl-studio')">
+              Train RL Agent
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spacious Modular Section 02: Platform Capabilities -->
+      <div class="obys-section">
+        <div class="section-head-bar">
+          <div>
+            <div class="section-index-num">02 // RESEARCH CAPABILITIES</div>
+            <h2 class="section-title-bold">CORE PLATFORM SUITE</h2>
+          </div>
+          <span style="font-family:var(--font-mono);color:var(--text-muted);">6 INTEGRATED MODULES</span>
+        </div>
+
+        <div class="obys-grid-3">
+          
+          <div class="obys-card" onclick="window.BearBullApp.switchView('view-live-market')">
+            <div>
+              <div class="card-num-watermark">01</div>
+              <h3 class="card-heading-bold">LIVE TRADING TERMINAL</h3>
+              <p class="card-text-muted">
+                Price-time priority order matching core with live Level-2 order book ladder, OHLCV candlesticks, and real-time trade tape.
+              </p>
+            </div>
+            <div class="card-arrow-action">OPEN TERMINAL <span>→</span></div>
+          </div>
+
+          <div class="obys-card" onclick="window.BearBullApp.switchView('view-agents')">
+            <div>
+              <div class="card-num-watermark">02</div>
+              <h3 class="card-heading-bold">11 AGENT ARCHETYPES</h3>
+              <p class="card-text-muted">
+                Avellaneda-Stoikov market makers, momentum traders, OU mean reversion, TWAP schedulers, and adversarial spoofers with pinned PRNGs.
+              </p>
+            </div>
+            <div class="card-arrow-action">INSPECT AGENTS <span>→</span></div>
+          </div>
+
+          <div class="obys-card" onclick="window.BearBullApp.switchView('view-rl-studio')">
+            <div>
+              <div class="card-num-watermark">03</div>
+              <h3 class="card-heading-bold">AI & RL STUDIO</h3>
+              <p class="card-text-muted">
+                Standard Gymnasium environment (`reset()`, `step()`) with 10-dimensional observation matrices and inventory-risk penalty rewards.
+              </p>
+            </div>
+            <div class="card-arrow-action">LAUNCH RL STUDIO <span>→</span></div>
+          </div>
+
+          <div class="obys-card" onclick="window.BearBullApp.switchView('view-benchmarks')">
+            <div>
+              <div class="card-num-watermark">04</div>
+              <h3 class="card-heading-bold">SYSTEMS BENCHMARK</h3>
+              <p class="card-text-muted">
+                Profiling contiguous Array+Bitmap vs Red-Black Tree vs Skip List order books across p50, p95, p99, and p99.9 tail latencies.
+              </p>
+            </div>
+            <div class="card-arrow-action">RUN BENCHMARK <span>→</span></div>
+          </div>
+
+          <div class="obys-card" onclick="window.BearBullApp.switchView('view-shocks')">
+            <div>
+              <div class="card-num-watermark">05</div>
+              <h3 class="card-heading-bold">SHOCK SIMULATOR</h3>
+              <p class="card-text-muted">
+                Inject flash crashes, liquidity crises, and volatility surges into the active book to evaluate emergent liquidity recovery.
+              </p>
+            </div>
+            <div class="card-arrow-action">TRIGGER SHOCKS <span>→</span></div>
+          </div>
+
+          <div class="obys-card" onclick="window.BearBullApp.switchView('view-report')">
+            <div>
+              <div class="card-num-watermark">06</div>
+              <h3 class="card-heading-bold">RESEARCH REPORT</h3>
+              <p class="card-text-muted">
+                Automated scientific reports separating Hypothesis, Empirical Results, and Interpretation with 95% bootstrap confidence intervals.
+              </p>
+            </div>
+            <div class="card-arrow-action">VIEW REPORT <span>→</span></div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 2. SPACIOUS & HIGH-CONTRAST LIVE TRADING TERMINAL         -->
+    <!-- ========================================================= -->
+    <section class="app-view" id="view-live-market">
+      <div class="terminal-fullscreen-wrap">
+        
+        <!-- Header Strip -->
+        <div class="terminal-header-strip">
+          <div class="terminal-stat-group">
+            <div class="stat-box">
+              <span class="stat-box-label">SYMBOL</span>
+              <span class="stat-box-val" style="color:var(--acid-cyan);">BBX / INR</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">MID-PRICE</span>
+              <span class="stat-box-val" id="tickerMid">₹100.12</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">SPREAD</span>
+              <span class="stat-box-val" id="tickerSpread" style="color:var(--acid-cyan);">₹0.01</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">REGIME</span>
+              <span class="stat-box-val" id="tickerRegime" style="color:var(--acid-green);">CALM</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-box-label">TICK</span>
+              <span class="stat-box-val" id="tickerTick">0</span>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;">
+            <button class="btn-obys btn-obys-primary" id="btnPlayPause">⏸ Pause</button>
+            <button class="btn-obys" id="btnReset">↺ Reset</button>
+            <button class="btn-obys" style="background:var(--acid-red);color:#000;border-color:var(--acid-red);" data-shock="flash_crash">⚡ Flash Crash</button>
+            <button class="btn-obys" onclick="window.BearBullApp.switchView('view-home')">✕ Exit</button>
+          </div>
+        </div>
+
+        <!-- 3-Column Spacious Layout -->
+        <div style="display:grid;grid-template-columns:300px 1fr 360px;gap:24px;">
+          
+          <!-- Left: Telemetry & Shocks -->
+          <div class="obys-terminal-card">
+            <div class="obys-terminal-card-header">
+              <span class="card-header-label">Market Health</span>
+              <span style="font-family:var(--font-mono);color:var(--acid-green);" id="marketHealthScore">90/100</span>
+            </div>
+            <div style="padding:20px;">
+              <div style="height:6px;background:#000;border-radius:3px;overflow:hidden;margin-bottom:16px;">
+                <div id="marketHealthBar" style="height:100%;width:90%;background:var(--acid-green);"></div>
+              </div>
+              <ul id="marketHealthReasons" style="font-size:12px;color:var(--text-muted);list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:24px;">
+                <li>• Active market maker quoting & balanced flow</li>
+              </ul>
+
+              <div style="font-family:var(--font-display);font-size:11px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">
+                In-Flight Market Shocks
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <button class="btn-obys" style="width:100%;font-size:11px;padding:10px;" data-shock="flash_crash">💥 Flash Crash</button>
+                <button class="btn-obys" style="width:100%;font-size:11px;padding:10px;" data-shock="liquidity_crisis">💧 Liquidity Withdrawal</button>
+                <button class="btn-obys" style="width:100%;font-size:11px;padding:10px;" data-shock="volatility_spike">🌊 Volatility Surge</button>
+                <button class="btn-obys" style="width:100%;font-size:11px;padding:10px;color:var(--acid-green);" data-shock="positive_news">📈 Earnings Leap</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center: High-Contrast Candlesticks -->
+          <div class="obys-terminal-card">
+            <div class="obys-terminal-card-header">
+              <span class="card-header-label">Mid-Price Candlesticks (OHLCV)</span>
+              <div style="display:flex;gap:14px;font-size:11px;font-family:var(--font-mono);">
+                <span style="color:var(--acid-cyan);">■ MA(9)</span>
+                <span style="color:var(--acid-green);">■ Bull</span>
+                <span style="color:var(--acid-red);">■ Bear</span>
+              </div>
+            </div>
+            <div style="padding:12px;flex:1;display:flex;flex-direction:column;">
+              <canvas id="candlestickChart" style="width:100%;height:100%;min-height:420px;display:block;"></canvas>
+            </div>
+          </div>
+
+          <!-- Right: Order Book & Tape -->
+          <div style="display:flex;flex-direction:column;gap:24px;">
+            
+            <div class="obys-terminal-card">
+              <div class="obys-terminal-card-header">
+                <span class="card-header-label">Level-2 Order Book</span>
+                <span style="font-size:10px;font-family:var(--font-mono);color:var(--text-muted);">PRICE / SIZE / ORD</span>
+              </div>
+              <div style="padding:8px;display:flex;flex-direction:column;">
+                <div id="orderbookAsks" style="display:flex;flex-direction:column;gap:2px;"></div>
+                <div class="spread-banner-bold" id="orderbookSpreadMid">
+                  <span class="mid-val">₹100.12</span>
+                  <span class="spread-val">SPREAD: ₹0.01</span>
+                </div>
+                <div id="orderbookBids" style="display:flex;flex-direction:column;gap:2px;"></div>
+              </div>
+            </div>
+
+            <div class="obys-terminal-card">
+              <div class="obys-terminal-card-header">
+                <span class="card-header-label">Live Trade Tape</span>
+              </div>
+              <div class="trade-tape-wrap" id="tradeTapeList"></div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 3. 11 AGENTS VIEW (SPACIOUS EDITORIAL)                    -->
+    <!-- ========================================================= -->
+    <section class="app-view" id="view-agents">
+      <div class="obys-section">
+        <div class="section-head-bar">
+          <div>
+            <div class="section-index-num">03 // AUTONOMOUS AGENT HUB</div>
+            <h2 class="section-title-bold">11 TRADER ARCHETYPES</h2>
+          </div>
+          <button class="btn-obys btn-obys-primary" onclick="window.BearBullApp.switchView('view-live-market')">Deploy in Market →</button>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-line);margin-bottom:48px;border-radius:4px;overflow:hidden;">
+          <table class="obys-table">
+            <thead>
+              <tr>
+                <th>AGENT ID</th>
+                <th>ARCHETYPE</th>
+                <th>INVENTORY</th>
+                <th>UNREALIZED PNL</th>
+                <th>FILL RATE</th>
+                <th>LATENCY</th>
+              </tr>
+            </thead>
+            <tbody id="agentTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="agent-grid-spacious">
+          <div class="agent-box">
+            <div class="agent-box-title">1. Market Maker</div>
+            <p class="card-text-muted">Quotes both sides with inventory skew based on Avellaneda-Stoikov (2008).</p>
+            <div class="agent-box-formula">r(s,q) = s - q · γ · σ² · (T - t)</div>
+          </div>
+          <div class="agent-box">
+            <div class="agent-box-title">2. Momentum Trader</div>
+            <p class="card-text-muted">Buys into upward price runs and sells into downward drops over rolling lookback windows.</p>
+            <div class="agent-box-formula">Return(t - k, t) &gt; Threshold → BUY</div>
+          </div>
+          <div class="agent-box">
+            <div class="agent-box-title">3. Latency-Sensitive MM</div>
+            <p class="card-text-muted">Quotes tighter spreads safely by reacting to its measured 8μs execution advantage.</p>
+            <div class="agent-box-formula">Spread = Base + (Latency / 1000) · 0.05</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 4. RL STUDIO (SPACIOUS EDITORIAL)                         -->
+    <!-- ========================================================= -->
+    <section class="app-view" id="view-rl-studio">
+      <div class="obys-section">
+        <div class="section-head-bar">
+          <div>
+            <div class="section-index-num">04 // REINFORCEMENT LEARNING</div>
+            <h2 class="section-title-bold">AI TRAINING STUDIO</h2>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:400px 1fr;gap:40px;">
+          <div class="agent-box">
+            <div class="agent-box-title" style="margin-bottom:20px;">Gymnasium RL Env</div>
+            <div style="background:#000;padding:20px;font-family:var(--font-mono);font-size:14px;margin-bottom:24px;border:1px solid var(--border-line);">
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                <span>Training Step:</span>
+                <b id="rlEpisodeNum">0</b>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Cumulative Reward:</span>
+                <b id="rlCumulativeRew" style="color:var(--acid-green);">₹0.00</b>
+              </div>
+            </div>
+            <button class="btn-obys btn-obys-acid" id="btnStepRL" style="width:100%;padding:16px;">
+              ▶ Step RL Agent Policy
+            </button>
+          </div>
+
+          <div class="agent-box">
+            <div class="agent-box-title" style="margin-bottom:16px;">Reward Convergence</div>
+            <canvas id="rlRewardChart" style="width:100%;height:320px;display:block;"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 5. BENCHMARKS (SPACIOUS EDITORIAL)                        -->
+    <!-- ========================================================= -->
+    <section class="app-view" id="view-benchmarks">
+      <div class="obys-section">
+        <div class="section-head-bar">
+          <div>
+            <div class="section-index-num">05 // SYSTEMS PROFILING</div>
+            <h2 class="section-title-bold">LOB DATA STRUCTURE BENCHMARK</h2>
+          </div>
+          <button class="btn-obys btn-obys-primary" id="btnRunBenchmark">Run 10,000 Ops</button>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-line);border-radius:4px;overflow:hidden;">
+          <table class="obys-table">
+            <thead>
+              <tr>
+                <th>DATA STRUCTURE</th>
+                <th>THROUGHPUT</th>
+                <th>p50 LATENCY</th>
+                <th>p99 LATENCY</th>
+                <th>p99.9 TAIL</th>
+                <th>RESULT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-row">
+                <td><b>Array + Bitmap (Contiguous)</b></td>
+                <td><b>98,400 ops/s</b></td>
+                <td>82 ns</td>
+                <td>124 ns</td>
+                <td>180 ns</td>
+                <td><span style="color:var(--acid-green);font-weight:800;">WINNER</span></td>
+              </tr>
+              <tr>
+                <td>Red-Black Tree (std::map)</td>
+                <td>34,200 ops/s</td>
+                <td>340 ns</td>
+                <td>580 ns</td>
+                <td>920 ns</td>
+                <td><span>BASELINE</span></td>
+              </tr>
+              <tr>
+                <td>Skip List (Probabilistic)</td>
+                <td>26,800 ops/s</td>
+                <td>480 ns</td>
+                <td>740 ns</td>
+                <td>1,150 ns</td>
+                <td><span>ALTERNATIVE</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 6. SHOCKS (SPACIOUS EDITORIAL)                            -->
+    <!-- ========================================================= -->
+    <section class="app-view" id="view-shocks">
+      <div class="obys-section">
+        <div class="section-head-bar">
+          <div>
+            <div class="section-index-num">06 // MARKET SHOCK ENGINE</div>
+            <h2 class="section-title-bold">INJECT REGIME TRANSITIONS</h2>
+          </div>
+        </div>
+
+        <div class="shock-grid-obys">
+          <div class="shock-card">
+            <div>
+              <h3 style="color:var(--acid-red);">⚡ Flash Crash</h3>
+              <p class="card-text-muted">Instant depth drainage triggering sudden liquidity collapse.</p>
+            </div>
+            <button class="btn-obys btn-obys-primary" data-shock="flash_crash" onclick="window.BearBullApp.switchView('view-live-market')">Inject Shock</button>
+          </div>
+          <div class="shock-card">
+            <div>
+              <h3 style="color:var(--acid-amber);">💧 Liquidity Crisis</h3>
+              <p class="card-text-muted">Market makers withdraw quote depth, expanding bid-ask spreads.</p>
+            </div>
+            <button class="btn-obys btn-obys-primary" data-shock="liquidity_crisis" onclick="window.BearBullApp.switchView('view-live-market')">Inject Shock</button>
+          </div>
+          <div class="shock-card">
+            <div>
+              <h3 style="color:var(--acid-green);">📈 Earnings Leap</h3>
+              <p class="card-text-muted">Positive fundamental news shock shifting valuation upward.</p>
+            </div>
+            <button class="btn-obys btn-obys-acid" data-shock="positive_news" onclick="window.BearBullApp.switchView('view-live-market')">Inject Shock</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 7. SCIENTIFIC REPORT (SPACIOUS EDITORIAL)                 -->
+    <!-- ========================================================= -->
+    <section class="app-view" id="view-report">
+      <div class="obys-section">
+        <div class="section-head-bar">
+          <div>
+            <div class="section-index-num">07 // SCIENTIFIC EXPERIMENT REPORT</div>
+            <h2 class="section-title-bold">RESEARCH TRIAL MANIFEST</h2>
+          </div>
+          <button class="btn-obys btn-obys-primary" onclick="window.print()">Export / Print PDF</button>
+        </div>
+        <div id="reportContainer"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= EDITORIAL FOOTER ================= -->
+  <footer style="padding:48px;border-top:1px solid var(--border-line);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:13px;color:var(--text-muted);flex-wrap:wrap;gap:16px;">
+    <div>BEARBULL QUANTITATIVE PLATFORM — PRD MASTER BLUEPRINT V1.0</div>
+    <div>PRESS <b style="color:var(--text-pure);">⌘K</b> FOR COMMAND PALETTE</div>
+  </footer>
+
+  <!-- ================= COMMAND PALETTE MODAL ================= -->
+  <div class="modal-overlay" id="cmdModal">
+    <div class="cmd-palette" style="background:#111111;border:1px solid var(--border-line);width:640px;border-radius:4px;">
+      <div class="cmd-input-wrap" style="padding:20px;border-bottom:1px solid var(--border-line);">
+        <input type="text" class="cmd-input" id="cmdInput" placeholder="TYPE A MODULE OR SHOCK COMMAND..." style="color:#fff;font-family:var(--font-display);font-size:16px;font-weight:700;" autocomplete="off">
+      </div>
+      <div class="cmd-list" id="cmdList" style="padding:10px 0;"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/parallax_intro.js"></script>
+  <script src="js/sim_engine.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/archetypes.js"></script>
+  <script src="js/causal_graph.js"></script>
+  <script src="js/report_gen.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
