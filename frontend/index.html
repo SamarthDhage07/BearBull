@@ -581,177 +581,57 @@
   </main>
 
   <!-- ================= CREATIVE BOLD LIGHT RED FOOTER ================= -->
+  <!-- ================= COMPACT BOLD LIGHT RED FOOTER ================= -->
   <footer class="creative-footer">
-    <!-- Top Infinite Ticker Bar in Light Red -->
-    <div class="footer-ticker-bar">
-      <div class="footer-ticker-track">
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> BEARBULL LOW-LATENCY SIMULATION ENGINE</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> 11 AUTONOMOUS RL & QUANT ARCHETYPES</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> SUB-MICROSECOND BITMAP LOB BENCHMARKS</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> AVELLANEDA-STOIKOV & CONT OFI ANALYTICS</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> FASTAPI REST V1 & WEBSOCKET ENGINE</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> GYMNASIUM MARKOV DECISION PROCESS</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> BEARBULL LOW-LATENCY SIMULATION ENGINE</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> 11 AUTONOMOUS RL & QUANT ARCHETYPES</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> SUB-MICROSECOND BITMAP LOB BENCHMARKS</span>
-        <span class="footer-ticker-item"><span class="footer-ticker-bullet"></span> AVELLANEDA-STOIKOV & CONT OFI ANALYTICS</span>
+    <div class="footer-compact-main">
+      <!-- Left: Bold Brand + Live Status -->
+      <div class="footer-compact-brand-group">
+        <span class="footer-brand-bold">BEARBULL <span class="highlight-red">QUANT</span></span>
+        <div class="footer-pulse-pill">
+          <span class="footer-pulse-dot"></span>
+          <span>ONLINE (82ns)</span>
+        </div>
+      </div>
+
+      <!-- Center: Quick Nav Links -->
+      <nav class="footer-compact-nav">
+        <a class="footer-nav-link" onclick="window.BearBullApp.switchView('view-live-market')">
+          <span class="arrow">›</span> Terminal
+        </a>
+        <a class="footer-nav-link" onclick="window.BearBullApp.switchView('view-agents')">
+          <span class="arrow">›</span> Agents
+        </a>
+        <a class="footer-nav-link" onclick="window.BearBullApp.switchView('view-rl-studio')">
+          <span class="arrow">›</span> RL Studio
+        </a>
+        <a class="footer-nav-link" onclick="window.BearBullApp.switchView('view-benchmarks')">
+          <span class="arrow">›</span> Benchmarks
+        </a>
+        <a class="footer-nav-link" onclick="window.BearBullApp.switchView('view-shocks')">
+          <span class="arrow">›</span> Shocks
+        </a>
+        <a class="footer-nav-link" onclick="window.BearBullApp.switchView('view-report')">
+          <span class="arrow">›</span> Report
+        </a>
+      </nav>
+
+      <!-- Right: Command badge + Back to Top -->
+      <div class="footer-compact-actions">
+        <span class="kbd-badge-compact">⌘K</span>
+        <button class="btn-back-top-compact" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+          <span>TOP</span>
+          <span style="color:var(--light-red);">↑</span>
+        </button>
       </div>
     </div>
 
-    <div class="footer-inner-container">
-      <!-- Giant Hero Title & Action Row -->
-      <div class="footer-hero-wrap">
-        <div>
-          <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;color:var(--light-red-soft);text-transform:uppercase;margin-bottom:12px;">
-            NEXT-GEN ELECTRONIC EXCHANGE ARCHITECTURE
-          </div>
-          <h2 class="footer-hero-headline">
-            THE ARCHITECTURE OF <span class="highlight-red">AUTONOMOUS</span> MARKETS.
-          </h2>
-        </div>
-        <div class="footer-hero-actions">
-          <button class="btn-footer-red" onclick="window.BearBullApp.switchView('view-live-market')">
-            Launch Trading Terminal <span>→</span>
-          </button>
-          <button class="btn-footer-outline" onclick="window.BearBullApp.switchView('view-report')">
-            View Research Paper <span>↗</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- 4-Column Creative Grid -->
-      <div class="footer-grid-creative">
-        <!-- Col 1: System Specs & Live Pulse -->
-        <div>
-          <div class="footer-col-title">
-            <span style="color:var(--light-red);">//</span> CORE ENGINE
-          </div>
-          <p class="footer-col-desc">
-            Deterministic limit order book matching engine coupled with a multi-agent reinforcement learning simulation framework.
-          </p>
-          <div class="footer-status-pill" style="margin-bottom:14px;">
-            <span class="footer-pulse-dot"></span>
-            <span>SYSTEM PULSE: <b>ONLINE (82ns)</b></span>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:12px;color:var(--light-red-soft);line-height:1.6;">
-            <div>• FIFO / Pro-Rata Matching</div>
-            <div>• Stoikov Microprice Analytics</div>
-            <div>• Deterministic Seed Streams</div>
-          </div>
-        </div>
-
-        <!-- Col 2: Platform Modules -->
-        <div>
-          <div class="footer-col-title">
-            <span style="color:var(--light-red);">//</span> NAVIGATION
-          </div>
-          <ul class="footer-links-list">
-            <li class="footer-link-item">
-              <a onclick="window.BearBullApp.switchView('view-live-market')">
-                <span class="arrow">›</span> 01 // Live Trading Terminal
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a onclick="window.BearBullApp.switchView('view-agents')">
-                <span class="arrow">›</span> 02 // 11 Agent Archetypes
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a onclick="window.BearBullApp.switchView('view-rl-studio')">
-                <span class="arrow">›</span> 03 // RL Training Studio
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a onclick="window.BearBullApp.switchView('view-benchmarks')">
-                <span class="arrow">›</span> 04 // Systems Benchmarks
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a onclick="window.BearBullApp.switchView('view-shocks')">
-                <span class="arrow">›</span> 05 // Regime Shock Lab
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a onclick="window.BearBullApp.switchView('view-report')">
-                <span class="arrow">›</span> 06 // Scientific Report
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Col 3: Research Foundations -->
-        <div>
-          <div class="footer-col-title">
-            <span style="color:var(--light-red);">//</span> QUANT FOUNDATIONS
-          </div>
-          <ul class="footer-links-list">
-            <li class="footer-link-item">
-              <a href="https://doi.org/10.1080/14697680701694460" target="_blank" rel="noopener">
-                <span class="arrow">↗</span> Avellaneda-Stoikov (2008)
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a href="https://ssrn.com/abstract=2415874" target="_blank" rel="noopener">
-                <span class="arrow">↗</span> Order Flow Imbalance (2014)
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a href="https://doi.org/10.1016/j.jfineco.2018.05.006" target="_blank" rel="noopener">
-                <span class="arrow">↗</span> Microprice Dynamics (2018)
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a href="https://www.jstor.org/stable/4479133" target="_blank" rel="noopener">
-                <span class="arrow">↗</span> Implementation Shortfall
-              </a>
-            </li>
-            <li class="footer-link-item">
-              <a onclick="window.BearBullApp.switchView('view-benchmarks')">
-                <span class="arrow">↗</span> Contiguous Array LOB (82ns)
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Col 4: Quick Hotkeys -->
-        <div>
-          <div class="footer-col-title">
-            <span style="color:var(--light-red);">//</span> COMMAND SHORTCUTS
-          </div>
-          <div class="footer-kbd-card">
-            <div class="footer-kbd-row">
-              <span>Command Palette</span>
-              <span class="kbd-badge">⌘K / Ctrl+K</span>
-            </div>
-            <div class="footer-kbd-row">
-              <span>Pause / Resume</span>
-              <span class="kbd-badge">Space</span>
-            </div>
-            <div class="footer-kbd-row">
-              <span>Reset Order Book</span>
-              <span class="kbd-badge">R</span>
-            </div>
-            <div class="footer-kbd-row">
-              <span>Trigger Shock</span>
-              <span class="kbd-badge">S</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom Signature & Copyright Bar -->
-      <div class="footer-bottom-bar">
-        <div class="footer-bottom-left">
-          <span>© 2026 BEARBULL SIMULATION LAB. ALL RIGHTS RESERVED.</span>
-          <span class="footer-bottom-badge">PRD V1.0 MASTER EDITION</span>
-          <span class="footer-bottom-badge" style="background:rgba(255,92,124,0.22);color:#ffffff;border-color:var(--light-red);">LIGHT RED LUXURY</span>
-        </div>
-        <div>
-          <button class="btn-back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-            <span>BACK TO TOP</span>
-            <span style="font-size:14px;color:var(--light-red);">↑</span>
-          </button>
-        </div>
+    <!-- Bottom Sub Row -->
+    <div class="footer-compact-sub">
+      <div>© 2026 BEARBULL SIMULATION LAB — PRD MASTER SPECIFICATION V1.0</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="footer-sub-tag">AVELLANEDA-STOIKOV</span>
+        <span class="footer-sub-tag">CONT OFI</span>
+        <span class="footer-sub-tag" style="background:rgba(255,92,124,0.22);color:#ffffff;border-color:var(--light-red);">LIGHT RED EDITION</span>
       </div>
     </div>
   </footer>
