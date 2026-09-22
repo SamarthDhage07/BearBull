@@ -667,14 +667,22 @@ body {
   --light-red-bg: #120508;
 }
 
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .creative-footer {
   margin-top: auto;
+  flex-shrink: 0;
   width: 100%;
   position: relative;
   background: radial-gradient(ellipse 70% 80% at 50% 0%, rgba(255, 92, 124, 0.14) 0%, #120407 55%, #090204 100%);
   border-top: 1px solid var(--light-red-border);
   color: var(--light-red-pale);
-  padding: 16px 36px 12px;
+  padding: 14px 36px 12px;
   overflow: hidden;
   font-family: var(--font-body);
   z-index: 100;
