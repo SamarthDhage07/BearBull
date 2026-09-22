@@ -652,5 +652,307 @@ body {
   display: block;
 }
 
+/* =====================================================================
+   OBYS FORMAT-INSPIRED DYNAMIC FLOATING BALL & PARALLAX SUITE
+   ===================================================================== */
+
+/* 1. Dynamic 3D Floating Ball */
+.creative-floating-ball, .creative-floating-ball * {
+  pointer-events: none !important;
+}
+
+.creative-floating-ball {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+  pointer-events: none !important;
+  z-index: 9990;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Floating Badges in Hero */
+.hero-parallax-tag {
+  position: absolute;
+  padding: 8px 16px;
+  background: rgba(44, 44, 44, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-line);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--acid-green);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 5;
+  will-change: transform;
+}
+@media (max-width: 900px) {
+  .hero-parallax-tag { display: none; }
+}
+
+.ball-inner-sphere {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #a3ffc7 0%, #25f284 35%, #0e7d3e 70%, #052914 100%);
+  box-shadow: 
+    0 0 25px rgba(37, 242, 132, 0.6),
+    0 12px 30px rgba(0, 0, 0, 0.7),
+    inset 0 -8px 15px rgba(0, 0, 0, 0.6),
+    inset 0 4px 10px rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ball-specular {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 35%;
+  height: 25%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  filter: blur(1.5px);
+  transform: rotate(-30deg);
+}
+
+.ball-core-glow {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 242, 132, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseOrbGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseOrbGlow {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 0.35; }
+}
+
+.ball-ring-orbit {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(37, 242, 132, 0.5);
+  animation: orbitRotate 12s linear infinite;
+}
+
+@keyframes orbitRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ball-cursor-label {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #000000;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ball-cursor-label.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.creative-floating-ball.magnet-hover .ball-inner-sphere {
+  box-shadow: 
+    0 0 45px rgba(37, 242, 132, 0.9),
+    0 20px 40px rgba(0, 0, 0, 0.8),
+    inset 0 0 20px rgba(255, 255, 255, 0.9);
+  background: #25f284;
+}
+
+/* 2. Kinetic Typographic Parallax Ribbon */
+.kinetic-parallax-container {
+  overflow: hidden;
+  padding: 30px 0;
+  border-top: 1px solid var(--border-line);
+  border-bottom: 1px solid var(--border-line);
+  background: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.kinetic-track {
+  white-space: nowrap;
+  display: flex;
+  will-change: transform;
+}
+
+.kinetic-text-huge {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6vw, 76px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+  padding-right: 36px;
+  color: #ffffff;
+}
+
+.kinetic-text-huge .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.35);
+}
+
+.kinetic-text-huge .accent {
+  color: var(--acid-green);
+  text-shadow: 0 0 25px rgba(37, 242, 132, 0.4);
+}
+
+.kinetic-bullet-star {
+  color: var(--acid-green);
+  font-size: 24px;
+}
+
+/* 3. Multi-Plane Parallax Visual Showcase Gallery */
+.parallax-showcase-section {
+  padding: 100px 48px;
+  border-bottom: 1px solid var(--border-line);
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-gallery-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .parallax-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.parallax-card-stack {
+  position: relative;
+  min-height: 480px;
+}
+
+.parallax-float-card {
+  position: absolute;
+  border-radius: 6px;
+  border: 1px solid var(--border-line);
+  background: var(--bg-surface);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: transform 0.15s ease-out, border-color 0.25s ease;
+  will-change: transform;
+}
+
+.parallax-float-card:hover {
+  border-color: var(--acid-green);
+  z-index: 20 !important;
+}
+
+.parallax-float-card.layer-main {
+  width: 90%;
+  height: 380px;
+  top: 40px;
+  left: 0;
+  z-index: 2;
+  background: #262626;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.parallax-float-card.layer-overlap-top {
+  width: 58%;
+  height: 220px;
+  top: -20px;
+  right: -10px;
+  z-index: 5;
+  background: rgba(44, 44, 44, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 20px;
+  border-color: var(--border-strong);
+}
+
+.parallax-float-card.layer-overlap-bottom {
+  width: 62%;
+  height: 200px;
+  bottom: -30px;
+  left: 35%;
+  z-index: 6;
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(16px);
+  padding: 20px;
+  border: 1px solid var(--acid-green);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(37, 242, 132, 0.2);
+}
+
+.parallax-diagram-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 4. Enhanced 3D Spotlight & Tilt on Cards */
+.obys-card, .agent-box, .shock-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease;
+}
+
+.obys-card::after, .agent-box::after, .shock-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--sheen-x, 50%) var(--sheen-y, 50%), rgba(37, 242, 132, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.obys-card:hover::after, .agent-box:hover::after, .shock-card:hover::after {
+  opacity: 1;
+}
+
+.parallax-badge-float {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 242, 132, 0.12);
+  border: 1px solid var(--acid-green);
+  color: var(--acid-green);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+
+
 
 

@@ -45,16 +45,42 @@
 
   // ---------------- VIEW NAVIGATION ----------------
   function initNavigation() {
+    // Nav buttons
     document.querySelectorAll('[data-target]').forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.target;
-        switchView(target);
+        if (target) switchView(target);
       });
     });
+
+    // Features Dropdown click toggle
+    const dropdownWrap = document.getElementById('featuresDropdownWrap');
+    const dropdownBtn = document.getElementById('btnFeaturesToggle');
+    if (dropdownBtn && dropdownWrap) {
+      dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownWrap.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!dropdownWrap.contains(e.target)) {
+          dropdownWrap.classList.remove('open');
+        }
+      });
+    }
   }
 
   function switchView(viewId) {
     activeView = viewId;
+
+    // Dismiss intro if open
+    if (window.parallaxIntro && window.parallaxIntro.active) {
+      window.parallaxIntro.completeIntro();
+    }
+
+    // Close features dropdown if open
+    const dropdownWrap = document.getElementById('featuresDropdownWrap');
+    if (dropdownWrap) dropdownWrap.classList.remove('open');
 
     // Update nav links active state
     document.querySelectorAll('.obys-menu-item, .nav-link-btn').forEach(btn => {

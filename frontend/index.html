@@ -63,12 +63,12 @@
 
     <!-- Clean Streamlined Menu with Features Mega Dropdown -->
     <nav class="obys-menu">
-      <button class="obys-menu-item active" data-target="view-home">Home</button>
+      <button class="obys-menu-item active" data-target="view-home" onclick="window.BearBullApp.switchView('view-home')">Home</button>
 
       <!-- Features Slide-Down Dropdown -->
-      <div class="features-dropdown-wrap">
-        <button class="obys-menu-item">Features <span style="font-size:10px;">▼</span></button>
-        <div class="dropdown-menu-obys">
+      <div class="features-dropdown-wrap" id="featuresDropdownWrap">
+        <button class="obys-menu-item" id="btnFeaturesToggle" type="button">Features <span style="font-size:10px;">▼</span></button>
+        <div class="dropdown-menu-obys" id="featuresDropdownMenu">
           
           <div class="dropdown-item-card" onclick="window.BearBullApp.switchView('view-live-market')">
             <span class="dropdown-item-num">01 //</span>
@@ -114,6 +114,11 @@
 
     <!-- Right Nav Actions -->
     <div class="obys-nav-actions">
+      <!-- Orb Cursor Toggle Button -->
+      <button class="btn-obys" id="btnToggleOrb" style="padding:8px 14px;font-family:var(--font-mono);font-size:11px;" title="Toggle 3D Floating Cursor Orb">
+        🟢 ORB: ON
+      </button>
+
       <button class="btn-obys btn-obys-primary" onclick="window.BearBullApp.switchView('view-live-market')">
         Live Exchange ↗
       </button>
@@ -169,6 +174,17 @@
           AGENT TRAINING
         </h1>
 
+        <!-- Floating Parallax Depth Badges -->
+        <div class="hero-parallax-tag" data-parallax-speed="0.25" style="top:22%;right:10%;">
+          ● LOB BITMAP: 82ns p50
+        </div>
+        <div class="hero-parallax-tag" data-parallax-speed="-0.2" style="top:42%;right:18%;color:var(--acid-cyan);border-color:rgba(0,229,255,0.3);">
+          ◆ 11 PRD ARCHETYPES
+        </div>
+        <div class="hero-parallax-tag" data-parallax-speed="0.35" style="top:62%;right:8%;color:var(--acid-amber);border-color:rgba(255,183,0,0.3);">
+          ▲ GYMNASIUM RL MDP
+        </div>
+
         <div class="hero-bottom-bar">
           <p class="hero-desc-large">
             A high-performance research platform coupling price-time matching engines with autonomous quantitative agents. Train reinforcement learning market makers and benchmark microsecond execution.
@@ -196,7 +212,7 @@
 
         <div class="obys-grid-3">
           
-          <div class="obys-card" onclick="window.BearBullApp.switchView('view-live-market')">
+          <div class="obys-card" data-orb-text="TRADE" onclick="window.BearBullApp.switchView('view-live-market')">
             <div>
               <div class="card-num-watermark">01</div>
               <h3 class="card-heading-bold">LIVE TRADING TERMINAL</h3>
@@ -207,7 +223,7 @@
             <div class="card-arrow-action">OPEN TERMINAL <span>→</span></div>
           </div>
 
-          <div class="obys-card" onclick="window.BearBullApp.switchView('view-agents')">
+          <div class="obys-card" data-orb-text="AGENTS" onclick="window.BearBullApp.switchView('view-agents')">
             <div>
               <div class="card-num-watermark">02</div>
               <h3 class="card-heading-bold">11 AGENT ARCHETYPES</h3>
@@ -218,7 +234,7 @@
             <div class="card-arrow-action">INSPECT AGENTS <span>→</span></div>
           </div>
 
-          <div class="obys-card" onclick="window.BearBullApp.switchView('view-rl-studio')">
+          <div class="obys-card" data-orb-text="TRAIN" onclick="window.BearBullApp.switchView('view-rl-studio')">
             <div>
               <div class="card-num-watermark">03</div>
               <h3 class="card-heading-bold">AI & RL STUDIO</h3>
@@ -229,7 +245,7 @@
             <div class="card-arrow-action">LAUNCH RL STUDIO <span>→</span></div>
           </div>
 
-          <div class="obys-card" onclick="window.BearBullApp.switchView('view-benchmarks')">
+          <div class="obys-card" data-orb-text="BENCHMARK" onclick="window.BearBullApp.switchView('view-benchmarks')">
             <div>
               <div class="card-num-watermark">04</div>
               <h3 class="card-heading-bold">SYSTEMS BENCHMARK</h3>
@@ -240,7 +256,7 @@
             <div class="card-arrow-action">RUN BENCHMARK <span>→</span></div>
           </div>
 
-          <div class="obys-card" onclick="window.BearBullApp.switchView('view-shocks')">
+          <div class="obys-card" data-orb-text="SHOCK" onclick="window.BearBullApp.switchView('view-shocks')">
             <div>
               <div class="card-num-watermark">05</div>
               <h3 class="card-heading-bold">SHOCK SIMULATOR</h3>
@@ -251,7 +267,7 @@
             <div class="card-arrow-action">TRIGGER SHOCKS <span>→</span></div>
           </div>
 
-          <div class="obys-card" onclick="window.BearBullApp.switchView('view-report')">
+          <div class="obys-card" data-orb-text="REPORT" onclick="window.BearBullApp.switchView('view-report')">
             <div>
               <div class="card-num-watermark">06</div>
               <h3 class="card-heading-bold">RESEARCH REPORT</h3>
@@ -265,6 +281,120 @@
         </div>
       </div>
 
+      <!-- Kinetic Typographic Parallax Ribbon (Opposite Sliding Tracks on Scroll) -->
+      <div class="kinetic-parallax-container">
+        <div class="kinetic-track kinetic-slide-left">
+          <div class="kinetic-text-huge">
+            <span>HFT MATCHING ENGINE</span> <span class="kinetic-bullet-star">★</span>
+            <span class="outline">82ns BITMAP LATENCY</span> <span class="kinetic-bullet-star">★</span>
+            <span class="accent">11 AUTONOMOUS AGENTS</span> <span class="kinetic-bullet-star">★</span>
+            <span>STOIKOV MICROPRICE</span> <span class="kinetic-bullet-star">★</span>
+            <span class="outline">GYMNASIUM RL MDP</span> <span class="kinetic-bullet-star">★</span>
+            <span>HFT MATCHING ENGINE</span> <span class="kinetic-bullet-star">★</span>
+            <span class="outline">82ns BITMAP LATENCY</span> <span class="kinetic-bullet-star">★</span>
+          </div>
+        </div>
+        <div class="kinetic-track kinetic-slide-right">
+          <div class="kinetic-text-huge">
+            <span class="outline">CONTIGUOUS LOB MEMORY</span> <span class="kinetic-bullet-star">★</span>
+            <span class="accent">98,400 OPS/SEC</span> <span class="kinetic-bullet-star">★</span>
+            <span>ZERO HEAP ALLOCATION</span> <span class="kinetic-bullet-star">★</span>
+            <span class="outline">AVELLANEDA-STOIKOV</span> <span class="kinetic-bullet-star">★</span>
+            <span>REAL-TIME OFI</span> <span class="kinetic-bullet-star">★</span>
+            <span class="outline">CONTIGUOUS LOB MEMORY</span> <span class="kinetic-bullet-star">★</span>
+            <span class="accent">98,400 OPS/SEC</span> <span class="kinetic-bullet-star">★</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 03: Multi-Plane Parallax Visual Showcase Gallery -->
+      <div class="parallax-showcase-section">
+        <div class="parallax-gallery-grid">
+          <div>
+            <div class="section-index-num">03 // DYNAMIC PARALLAX ENGINE</div>
+            <h2 class="section-title-bold" style="margin-bottom:24px;">
+              MICROSTRUCTURE <br/>
+              <span style="color:var(--acid-green);">IN MOTION</span>
+            </h2>
+            <p class="hero-desc-large" style="margin-bottom:32px;">
+              Watch market dynamics unfold across multiple visual depth planes. Live order flows, stochastic inventory boundaries, and deep reinforcement learning reward convergence slide dynamically with user scroll.
+            </p>
+            
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <div class="parallax-badge-float" data-parallax-speed="0.15">
+                <span>●</span> DETERMINISTIC SEED PRNG
+              </div>
+              <div class="parallax-badge-float" data-parallax-speed="-0.2" style="border-color:var(--acid-cyan);color:var(--acid-cyan);background:rgba(0,229,255,0.1);">
+                <span>◆</span> L2 DEPTH DELTAS
+              </div>
+              <div class="parallax-badge-float" data-parallax-speed="0.3" style="border-color:var(--acid-amber);color:var(--acid-amber);background:rgba(255,183,0,0.1);">
+                <span>▲</span> RESILIENCE SCORE
+              </div>
+            </div>
+
+            <div style="margin-top:36px;">
+              <button class="btn-obys btn-obys-primary" style="padding:16px 32px;" onclick="window.BearBullApp.switchView('view-live-market')">
+                Explore Terminal Depth →
+              </button>
+            </div>
+          </div>
+
+          <!-- Multi-Layer Floating Parallax Cards -->
+          <div class="parallax-card-stack">
+            <!-- Background Layer Card -->
+            <div class="parallax-float-card layer-main" data-parallax-speed="0.15" data-orb-text="DEPTH">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">LIVE ORDER BOOK DEPTH CANOPY</span>
+                <span style="font-family:var(--font-mono);font-size:11px;color:var(--acid-green);">FIFO ENGINE</span>
+              </div>
+              <div style="font-family:var(--font-display);font-size:28px;font-weight:900;letter-spacing:-0.03em;">
+                ₹100.12 <span style="font-size:14px;color:var(--acid-cyan);font-family:var(--font-mono);font-weight:700;">+1.42%</span>
+              </div>
+              <div style="height:120px;background:#181818;border:1px solid var(--border-line);border-radius:4px;display:flex;align-items:flex-end;padding:10px;gap:6px;">
+                <div style="flex:1;background:var(--acid-green);height:30%;opacity:0.8;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-green);height:50%;opacity:0.9;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-green);height:80%;opacity:1;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-green);height:60%;opacity:0.7;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-cyan);height:95%;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-red);height:75%;opacity:0.7;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-red);height:85%;opacity:1;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-red);height:45%;opacity:0.8;border-radius:2px;"></div>
+                <div style="flex:1;background:var(--acid-red);height:25%;opacity:0.6;border-radius:2px;"></div>
+              </div>
+            </div>
+
+            <!-- Overlapping Top Layer Card -->
+            <div class="parallax-float-card layer-overlap-top" data-parallax-speed="-0.3" data-parallax-rotate="true" data-orb-text="AI RL">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--acid-green);font-weight:700;margin-bottom:6px;">
+                [RL MDP POLICY]
+              </div>
+              <div style="font-family:var(--font-display);font-size:16px;font-weight:800;margin-bottom:8px;">
+                AV-STOIKOV SPREAD SKEW
+              </div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:#a0a0a0;line-height:1.4;">
+                r(s,q) = s - q·γ·σ²·(T-t)
+              </div>
+              <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;color:var(--acid-green);font-weight:700;">
+                ✓ Convergence: 99.4%
+              </div>
+            </div>
+
+            <!-- Overlapping Bottom Layer Card -->
+            <div class="parallax-float-card layer-overlap-bottom" data-parallax-speed="0.45" data-orb-text="LATENCY">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-family:var(--font-mono);font-size:10px;color:var(--acid-green);font-weight:800;">CONTIGUOUS BITMAP LOB</span>
+                <span style="font-family:var(--font-mono);font-size:10px;background:var(--acid-green);color:#000;padding:2px 6px;border-radius:2px;font-weight:900;">p50</span>
+              </div>
+              <div style="font-family:var(--font-display);font-size:32px;font-weight:900;color:#ffffff;line-height:1;">
+                82 <span style="font-size:16px;color:var(--acid-green);font-family:var(--font-mono);">ns</span>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:#888;margin-top:6px;">
+                98,400 ops/sec • Zero L2 Heap Alloc
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ========================================================= -->
@@ -594,6 +724,7 @@
 
   <!-- Scripts -->
   <script src="js/parallax_intro.js"></script>
+  <script src="js/parallax_engine.js"></script>
   <script src="js/sim_engine.js"></script>
   <script src="js/charts.js"></script>
   <script src="js/archetypes.js"></script>
