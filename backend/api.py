@@ -15,12 +15,14 @@ import asyncio
 import uuid
 import json
 import time
+import os
 from typing import Dict, List, Optional, Any
 from pydantic import BaseModel, Field
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from simulation import Simulation, ExperimentGenome, MonteCarloRunner
 from benchmark import DataStructureBenchmark
@@ -81,7 +83,8 @@ class CounterfactualInput(BaseModel):
     new_value: Any
 
 
-@app.get("/")
+@app.get("/api/health")
+@app.get("/api")
 async def root():
     return {
         "status": "online",
@@ -300,3 +303,10 @@ async def ws_endpoint(websocket: WebSocket, run_id: str):
     except WebSocketDisconnect:
         if websocket in SUBSCRIBERS.get(run_id, []):
             SUBSCRIBERS[run_id].remove(websocket)
+
+
+# Mount static frontend files for combined single-service deployment (e.g. Render / Cloud)
+frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))
+if os.path.isdir(frontend_dir):
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+

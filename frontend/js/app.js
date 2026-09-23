@@ -13,7 +13,7 @@
   const causal = new window.CausalGraphViewer();
 
   let activeView = 'view-home';
-  const API_URL = 'http://localhost:8000';
+  const API_URL = (window.location.protocol === 'file:') ? 'http://localhost:8000' : window.location.origin;
 
   window.BearBullApp = {
     switchView: switchView,
@@ -373,15 +373,16 @@
 
   // ---------------- BACKEND CONNECTION CHECK ----------------
   function tryConnectBackend() {
-    fetch(`${API_URL}/`)
+    fetch(`${API_URL}/api/health`)
       .then(res => res.json())
       .then(data => {
         const badge = document.getElementById('backendBadge');
         if (badge) {
-          badge.innerHTML = '<span class="status-dot"></span> FASTAPI LIVE (8000)';
+          badge.innerHTML = '<span class="status-dot"></span> FASTAPI LIVE';
         }
       })
       .catch(() => {});
   }
+
 
 })();
